@@ -1,0 +1,31 @@
+Relatorio REC MAC0219
+Rubens Gomes Neto
+9318484
+
+O programa desenvolvida gera imagens do conjunto de Mandelbrot calculando pixel
+a pixel a cor associada ao numero de iteracoes da funcao z_(n) = z_(n-1)^2 + c;
+
+A implementacao sequencial é simples e percorre todos os pixels pedidos
+calculando a cor associada.
+Para paralelizacao com OMP foi usado um #pragma no for que percorre os pixels.
+
+Para a paralelizacao em cuda cada thread de cada bloco faz o calculo de um
+pixel.
+
+Para a distribuicao por open MPI cada processo calcula seu espaco de calculo na
+imagem e calcula a secao necessaria, apos o calculo os processos de id > 0
+enviam seus resultados para o processo 0, que junta todos e gera a imagem.
+
+CORES: o programa possui 3 configuracoes de cores diferentes, que podem ser
+passadas como um parametro int opicional, as opcoes disponiveis são:
+    DEFAULT (0): esquema de cores usado no ep2, criado por mim sem muito
+        pensamento, gera imagens interessantes com cores meio aleatorias.
+    HUE (1): utiliza as definicoes de hue para gerar uma mudanca de cores
+        gradativa, de longe nao fica tao interessante, mas em aproximacoes das
+        bordas permite ver as estruturas de forma mais nitida.
+    BW (2): cria imagens em preto e branco usando iteracoes pares e impares,
+        as imagens sao estranhamente interessantes e simples.
+
+Incluso no .zip estao 3 imagens de demonstrando as diferencas das coloracoes.
+A area utilizada foi de z0(-0.795, 0.155) a z1(-0.785, 0.145).
+
